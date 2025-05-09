@@ -1,6 +1,7 @@
 package app
 
 import (
+	"tech-challenge-fase-1/internal/infra/config"
 	"tech-challenge-fase-1/internal/infra/database"
 	"tech-challenge-fase-1/internal/infra/events"
 	httpserver "tech-challenge-fase-1/internal/infra/http"
@@ -15,6 +16,7 @@ type APIApp struct {
 	httpServer         *httpserver.GinHTTPServerAdapter
 	connection         *database.PGXConnectionAdapter
 	customerRepository *repositories.CustomerRepositoryDB
+	customerService *services.AwsCustomerService
 	productRepository  *repositories.ProductRepositoryDB
 	orderRepository    *repositories.OrderRepositoryDB
 	orderDisplayListQuery *queries.OrderDisplayListQueryDB
@@ -55,6 +57,14 @@ func (app *APIApp) initConnectionDB() {
 	app.eventManager = events.NewEventManager()
 
 	app.mercadoPagoGateway = services.NewMercadoPagoGateway(app.eventManager)
+	var err error
+	app.customerService, err = services.NewAwsCustomerService(
+		config.AWS_REGION,
+		config.AWS_USER_POOL_ID,
+	)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (app *APIApp) configRoutes() {

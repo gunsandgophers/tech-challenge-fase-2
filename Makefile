@@ -15,3 +15,6 @@ migrate/create:
 
 swagger:
 	docker run --rm -v ./:/code ghcr.io/swaggo/swag:latest init
+
+swagger-mac:
+	docker run --platform linux/amd64 --rm -v ./:/code ghcr.io/swaggo/swag:latest init

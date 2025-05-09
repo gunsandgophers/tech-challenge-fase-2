@@ -10,6 +10,12 @@ services:
     volumes:
       - ./:/app
     command: go run main.go
+    environment:
+      POSTGRES_DB: tech-challenge-fase
+      POSTGRES_USER: tech-challenge-fase
+      POSTGRES_PASSWORD: tech-challenge-fase
+      AWS_REGION: us-east-1
+      AWS_USER_POOL_ID: us-east-1_3ofqHwfxr
     depends_on:
       db:
         condition: service_healthy

@@ -45,26 +45,6 @@ definitions:
       paymentLink:
         type: string
     type: object
-  dtos.CreateCustomerDTO:
-    properties:
-      cpf:
-        type: string
-      email:
-        type: string
-      name:
-        type: string
-    type: object
-  dtos.CustomerDTO:
-    properties:
-      cpf:
-        type: string
-      email:
-        type: string
-      id:
-        type: string
-      name:
-        type: string
-    type: object
   dtos.MethodType:
     enum:
     - PIX
@@ -148,61 +128,6 @@ paths:
       summary: Show the index payload
       tags:
       - index
-  /customer/:
-    post:
-      consumes:
-      - application/json
-      description: register the customer information
-      parameters:
-      - description: Insert Customer
-        in: body
-        name: customer
-        required: true
-        schema:
-          $ref: '#/definitions/dtos.CreateCustomerDTO'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/dtos.CustomerDTO'
-        "400":
-          description: when bad request
-          schema:
-            type: string
-        "406":
-          description: when invalid params or invalid object
-          schema:
-            type: string
-      summary: Create a customer
-      tags:
-      - customers
-  /customer/{cpf}/:
-    get:
-      consumes:
-      - application/json
-      description: get the customer by CPF
-      parameters:
-      - description: Customer CPF
-        in: path
-        name: cpf
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/dtos.CustomerDTO'
-        "404":
-          description: when object not found
-          schema:
-            type: string
-      summary: Show a customer
-      tags:
-      - customers
   /order/{order_id}/payment-status:
     get:
       consumes:

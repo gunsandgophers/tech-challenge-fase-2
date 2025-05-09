@@ -12,7 +12,7 @@ import (
 
 type OrderController struct {
 	orderRepository       repositories.OrderRepositoryInterface
-	customerRepository    repositories.CustomerRepositoryInterface
+	customerService       services.CustomerService
 	productRepository     repositories.ProductRepositoryInterface
 	paymentGateway        services.PaymentGatewayInterface
 	commandEventManager   events.ManagerEvent
@@ -21,7 +21,7 @@ type OrderController struct {
 
 func NewOrderController(
 	orderRepository repositories.OrderRepositoryInterface,
-	customerRepository repositories.CustomerRepositoryInterface,
+	customerService services.CustomerService,
 	productRepository repositories.ProductRepositoryInterface,
 	paymentGateway services.PaymentGatewayInterface,
 	commandEventManager events.ManagerEvent,
@@ -29,7 +29,7 @@ func NewOrderController(
 ) *OrderController {
 	return &OrderController{
 		orderRepository:       orderRepository,
-		customerRepository:    customerRepository,
+		customerService:    customerService,
 		productRepository:     productRepository,
 		paymentGateway:        paymentGateway,
 		commandEventManager:   commandEventManager,
@@ -58,7 +58,7 @@ func (cc *OrderController) Checkout(c httpserver.HTTPContext) {
 	}
 	checkoutUseCase := orders.NewCheckoutOrderUseCase(
 		cc.orderRepository,
-		cc.customerRepository,
+		cc.customerService,
 		cc.productRepository,
 		cc.paymentGateway,
 		cc.commandEventManager,

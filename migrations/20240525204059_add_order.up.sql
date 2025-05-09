@@ -8,7 +8,6 @@ CREATE TABLE orders
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT pk_order_id PRIMARY KEY (id),
-    CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customer (id),
     CONSTRAINT payment_status CHECK (payment_status IN ('PENDING', 'PAID', 'REJECTED', 'AWAITING_PAYMENT')),
     CONSTRAINT preparation_status CHECK (preparation_status IN ('AWAITING', 'RECEIVED', 'IN_PREPARATION', 'READY', 'FINISHED'))
 );

@@ -10,7 +10,7 @@ import (
 
 type CheckoutOrderUseCase struct {
 	orderRepository     repositories.OrderRepositoryInterface
-	customerRepository repositories.CustomerRepositoryInterface
+	customerService services.CustomerService
 	productRepository repositories.ProductRepositoryInterface
 	paymentGateway      services.PaymentGatewayInterface
 	commandEventManager events.ManagerEvent
@@ -18,14 +18,14 @@ type CheckoutOrderUseCase struct {
 
 func NewCheckoutOrderUseCase(
 	orderRepository repositories.OrderRepositoryInterface,
-	customerRepository repositories.CustomerRepositoryInterface,
+	customerService services.CustomerService,
 	productRepository repositories.ProductRepositoryInterface,
 	paymentGateway services.PaymentGatewayInterface,
 	commandEventManager events.ManagerEvent,
 ) *CheckoutOrderUseCase {
 	return &CheckoutOrderUseCase{
 		orderRepository:     orderRepository,
-		customerRepository:     customerRepository,
+		customerService:     customerService,
 		productRepository:     productRepository,
 		paymentGateway:      paymentGateway,
 		commandEventManager: commandEventManager,
@@ -36,7 +36,7 @@ func (c *CheckoutOrderUseCase) validateCustomerId(customerId *string) error {
 	if customerId == nil {
 		return nil
 	}
-	_, err := c.customerRepository.GetCustomerByID(*customerId)
+	_, err := c.customerService.GetCustomerById(*customerId)
 	if err != nil {
 		return err
 	}

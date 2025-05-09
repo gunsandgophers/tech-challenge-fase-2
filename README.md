@@ -1,6 +1,6 @@
-# tech-challenge-fase-1
+# tech-challenge
 
-Tech Challenge Fase 1...
+Tech Challenge...
 
 Let's go tech challenge!!!
 

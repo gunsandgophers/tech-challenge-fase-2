@@ -10,11 +10,11 @@ import (
 // Registra as rotas dos controllers
 func registerRouters(app *APIApp) {
 	helloController := controllers.NewHelloController()
-	customerController := controllers.NewCustomerController(app.customerRepository)
+	// customerController := controllers.NewCustomerController(app.customerRepository)
 	productController := controllers.NewProductController(app.productRepository)
 	orderController := controllers.NewOrderController(
 		app.orderRepository,
-		app.customerRepository,
+		app.customerService,
 		app.productRepository,
 		app.mercadoPagoGateway,
 		app.eventManager,
@@ -26,8 +26,8 @@ func registerRouters(app *APIApp) {
 	app.httpServer.GET("/", helloController.Index)
 
 	//customer
-	app.httpServer.POST("/customer/", customerController.RegisterCustomer)
-	app.httpServer.GET("/customer/:cpf/", customerController.GetCustomer)
+	// app.httpServer.POST("/customer/", customerController.RegisterCustomer)
+	// app.httpServer.GET("/customer/:cpf/", customerController.GetCustomer)
 
 	//products
 	app.httpServer.POST("/product", productController.CreateProduct)

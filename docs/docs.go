@@ -47,90 +47,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/customer/": {
-            "post": {
-                "description": "register the customer information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "customers"
-                ],
-                "summary": "Create a customer",
-                "parameters": [
-                    {
-                        "description": "Insert Customer",
-                        "name": "customer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dtos.CreateCustomerDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/dtos.CustomerDTO"
-                        }
-                    },
-                    "400": {
-                        "description": "when bad request",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "406": {
-                        "description": "when invalid params or invalid object",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/customer/{cpf}/": {
-            "get": {
-                "description": "get the customer by CPF",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "customers"
-                ],
-                "summary": "Show a customer",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Customer CPF",
-                        "name": "cpf",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/dtos.CustomerDTO"
-                        }
-                    },
-                    "404": {
-                        "description": "when object not found",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/order/checkout": {
             "post": {
                 "description": "make a checkout for an order",
@@ -611,37 +527,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "paymentLink": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.CreateCustomerDTO": {
-            "type": "object",
-            "properties": {
-                "cpf": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.CustomerDTO": {
-            "type": "object",
-            "properties": {
-                "cpf": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "name": {
                     "type": "string"
                 }
             }
